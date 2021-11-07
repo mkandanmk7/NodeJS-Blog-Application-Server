@@ -2,7 +2,12 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
+
+//routes
+const authRoute = require("./Routes/Auth");
+
 const mongoose = require("mongoose");
+app.use(express.json());
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -10,6 +15,9 @@ mongoose
   })
   .then(console.log("connected to mongo db"))
   .catch((err) => console.log("Error in Db connection", err));
+
+//auth
+app.use("/api/auth", authRoute);
 
 port = 3001;
 app.listen(port, () => {
