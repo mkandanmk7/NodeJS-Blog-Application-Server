@@ -38,9 +38,11 @@ router.post("/login", async (req, res) => {
         .status(400)
         .send({ message: "Password is incorrect, try with correct one" });
 
-    res
-      .status(200)
-      .send({ Message: "user Logged in Successfully", details: userExist });
+    const { password, ...others } = userExist._doc; //spliting
+    res.status(200).send({
+      Message: "user Logged in Successfully",
+      details: others,
+    });
   } catch (err) {
     console.log("Error in login:", err);
     res.status(400).send({ Error: "Error in login", Details: err });
