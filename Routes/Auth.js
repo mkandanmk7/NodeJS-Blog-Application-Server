@@ -5,8 +5,9 @@ const User = require("../Models/User");
 //register
 router.post("/register", async (req, res) => {
   try {
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10); //gen string rounds 10
     const hashedPass = await bcrypt.hash(req.body.password, salt);
+    //User sChema here
     const newUser = new User({
       username: req.body.username,
       email: req.body.email,
@@ -23,5 +24,27 @@ router.post("/register", async (req, res) => {
 });
 
 //login
+
+router.post("/login", async (req, res) => {
+  try {
+    const userExist = await User.findOne({ username: req.body.username });
+    console.log(userExist);
+    !userExist &&
+      res.status(400).send({ message: "User not exist , try register" });
+    //compare with our encrypted password stored in db;
+    const isValid = await bcrypt.compare(req.body.password, userExist.password);
+    !isValid &&
+      res
+        .status(400)
+        .send({ message: "Password is incorrect, try with correct one" });
+
+    res
+      .status(200)
+      .send({ Message: "user Logged in Successfully", details: userExist });
+  } catch (err) {
+    console.log("Error in login:", err);
+    res.status(400).send({ Error: "Error in login", Details: err });
+  }
+});
 
 module.exports = router;
