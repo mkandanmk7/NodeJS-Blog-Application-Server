@@ -19,4 +19,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+//get cate
+router.get("/", async (req, res) => {
+  try {
+    const postCategory = await Category.find();
+    res
+      .status(200)
+      .send({ message: "get categorie done", details: postCategory });
+  } catch (err) {
+    res.status(500).send({ message: "error in get category", details: err });
+  }
+});
+
 module.exports = router;
