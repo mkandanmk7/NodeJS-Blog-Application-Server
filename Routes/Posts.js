@@ -44,7 +44,24 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete post
-router.delete("/:id", async (req, res) => {});
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.username === req.body.username) {
+      try {
+        //delete
+        await Post.deleteOne();
+        res.status(200).send({ message: "post deleted ", details: post });
+      } catch (err) {
+        res.status(500).send({ message: "error in delete post", err: err });
+      }
+    } else {
+      res.status(500).send("you can delete only your posts");
+    }
+  } catch (err) {
+    res.status(500).send({ message: "error in delete", err: err });
+  }
+});
 
 // get post
 router.get("/", async (req, res) => {});
