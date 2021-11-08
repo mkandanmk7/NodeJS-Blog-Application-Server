@@ -73,4 +73,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//get all posts two query? condtions  username and category
+router.get("/", async (req, res) => {
+  //geting query /?username=value
+  const username = req.query.user;
+  const catName = req.query.cat;
+
+  try {
+    let posts;
+    if (username) {
+      posts = await Post.find({ username });
+      console.log("posts by user:", posts);
+    } else if (catName) {
+      posts = await Post.find({ categories: { $in: [catName] } });
+      console.log("posts by category:", posts);
+    } else {
+      posts = await Post.find();
+      console.log("posts all:", posts);
+    }
+    res.status(200).send({ message: "get posts ", details: posts });
+  } catch (err) {
+    res.status(500).send({ message: "error in get all post", err: err });
+  }
+});
+
 module.exports = router;
