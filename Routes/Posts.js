@@ -64,6 +64,13 @@ router.delete("/:id", async (req, res) => {
 });
 
 // get post
-router.get("/", async (req, res) => {});
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    res.status(200).send({ message: "get post done", details: post });
+  } catch (error) {
+    res.status(500).send({ message: "error in get post", err: err });
+  }
+});
 
 module.exports = router;
