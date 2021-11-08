@@ -41,7 +41,9 @@ router.delete("/:id", async (req, res) => {
       const user = await User.findById(req.params.id);
       if (user) {
         try {
+          //delete user's all posts
           await Post.deleteMany({ username: user.username });
+          // delete user
           await User.findByIdAndDelete(req.params.id);
           res
             .status(200)
@@ -57,6 +59,20 @@ router.delete("/:id", async (req, res) => {
     }
   } else {
     res.status(401).send("Youre not permitted to delete others posts");
+  }
+});
+
+//getuser
+
+router.get("/:id", async (req, res) => {
+  console.log("user getting process");
+  try {
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const { password, ...others } = user._doc;
+    res.status(200).send({ userDetails: others });
+  } catch (error) {
+    res.status(500).send("Error in getting user");
   }
 });
 
