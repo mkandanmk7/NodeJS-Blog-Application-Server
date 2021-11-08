@@ -6,6 +6,7 @@ dotenv.config();
 //routes
 const authRoute = require("./Routes/Auth");
 const userRoute = require("./Routes/Users");
+const postRoute = require("./Routes/Posts");
 
 const mongoose = require("mongoose");
 app.use(express.json());
@@ -21,6 +22,7 @@ mongoose
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
 
 port = 3001;
 app.listen(port, () => {
