@@ -39,15 +39,17 @@ router.delete("/:id", async (req, res) => {
   if (req.body.userId === req.params.id) {
     try {
       const user = await User.findById(req.params.id);
-      try {
-        await Post.deleteMany({ username: user.username });
-        await User.findByIdAndDelete(req.params.id);
-        res
-          .status(200)
-          .send({ Message: "user deleted Successfully", details: user });
-      } catch (err) {
-        console.log("Error in delete");
-        res.status(500).send(err);
+      if (user) {
+        try {
+          await Post.deleteMany({ username: user.username });
+          await User.findByIdAndDelete(req.params.id);
+          res
+            .status(200)
+            .send({ Message: "user deleted Successfully", details: user });
+        } catch (err) {
+          console.log("Error in delete");
+          res.status(500).send(err);
+        }
       }
     } catch (err) {
       console.log("err", err);
