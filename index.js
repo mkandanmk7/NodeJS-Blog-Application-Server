@@ -12,7 +12,6 @@ const postRoute = require("./Routes/Posts");
 const categoryRoute = require("./Routes/Categories");
 
 const mongoose = require("mongoose");
-app.use(express.json());
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -36,6 +35,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(cors());
+app.use(express.json());
 
 app.use("/api/upload", upload.single("file"), (req, res) => {
   try {
