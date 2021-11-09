@@ -10,7 +10,6 @@ router.post("/", async (req, res) => {
     res.status(200).send({
       Message: "category created",
       details: postCategory,
-      cat: { first: "music", second: "game" },
     });
   } catch (error) {
     res
