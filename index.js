@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
+const cors = require("cors");
 const multer = require("multer");
 
 //routes
@@ -33,6 +34,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+app.use(cors());
 
 app.use("/api/upload", upload.single("file"), (req, res) => {
   try {
