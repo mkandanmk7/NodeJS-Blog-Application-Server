@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const multer = require("multer");
+const path = require("path");
 
 //routes
 const authRoute = require("./Routes/Auth");
@@ -36,6 +37,9 @@ const upload = multer({ storage: storage });
 
 app.use(cors());
 app.use(express.json());
+
+// make public folder:
+app.use("/images", express.static(path.join(__dirname, "/images")));
 
 app.use("/api/upload", upload.single("file"), (req, res) => {
   try {
