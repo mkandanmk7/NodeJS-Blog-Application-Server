@@ -15,9 +15,7 @@ router.post("/register", async (req, res) => {
       password: hashedPass,
     });
     const user = await newUser.save();
-    res
-      .status(200)
-      .send({ register: "user registered successfully", details: user });
+    res.status(200).send({ register: "user registered successfully", user });
   } catch (err) {
     console.log(err);
     res.status(500).send({ Error: "Error in register", error: err });
@@ -42,7 +40,7 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = userExist._doc; //spliting
     res.status(200).send({
       Message: "user Logged in Successfully",
-      details: others,
+      others,
     });
   } catch (err) {
     console.log("Error in login:", err);

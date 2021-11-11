@@ -20,9 +20,7 @@ router.put("/:id", async (req, res) => {
         { returnDocument: "after" }
       );
       console.log("Updated user is:", updateUser);
-      res
-        .status(200)
-        .send({ Messgae: "Updated successfuly", Details: updateUser });
+      res.status(200).send({ Messgae: "Updated successfuly", updateUser });
     } catch (err) {
       console.log("Error in :", err);
       res.status(500).send("Error in updation ");
@@ -45,9 +43,7 @@ router.delete("/:id", async (req, res) => {
           await Post.deleteMany({ username: user.username });
           // delete user
           await User.findByIdAndDelete(req.params.id);
-          res
-            .status(200)
-            .send({ Message: "user deleted Successfully", details: user });
+          res.status(200).send({ Message: "user deleted Successfully", user });
         } catch (err) {
           console.log("Error in delete");
           res.status(500).send(err);
@@ -70,7 +66,7 @@ router.get("/:id", async (req, res) => {
     const user = await User.findById(req.params.id);
     console.log(user);
     const { password, ...others } = user._doc;
-    res.status(200).send({ userDetails: others });
+    res.status(200).send({ others });
   } catch (error) {
     res.status(500).send("Error in getting user");
   }

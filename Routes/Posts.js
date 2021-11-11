@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
   try {
     const post = await newPost.save();
-    res.status(200).send({ message: "created post", details: post });
+    res.status(200).send({ message: "created post", post });
   } catch (err) {
     res.status(500).send({ message: "error in create post", details: err });
   }
@@ -27,9 +27,7 @@ router.put("/:id", async (req, res) => {
           { $set: req.body },
           { new: true }
         );
-        res
-          .status(200)
-          .send({ message: "updated successfully", details: updation });
+        res.status(200).send({ message: "updated successfully", updation });
       } catch (err) {
         res
           .status(500)
@@ -67,7 +65,7 @@ router.delete("/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    res.status(200).send({ message: "get post done", details: post });
+    res.status(200).send({ message: "get post done", post });
   } catch (error) {
     res.status(500).send({ message: "error in get post", err: err });
   }
@@ -91,7 +89,7 @@ router.get("/", async (req, res) => {
       posts = await Post.find();
       console.log("posts all:", posts);
     }
-    res.status(200).send({ message: "get posts ", details: posts });
+    res.status(200).send({ message: "get posts ", posts });
   } catch (err) {
     res.status(500).send({ message: "error in get all post", err: err });
   }

@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     const postCategory = await newCat.save();
     res.status(200).send({
       Message: "category created",
-      details: postCategory,
+      postCategory,
     });
   } catch (error) {
     res
@@ -22,9 +22,7 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const postCategory = await Category.find();
-    res
-      .status(200)
-      .send({ message: "get categorie done", details: postCategory });
+    res.status(200).send({ message: "get categorie done", postCategory });
   } catch (err) {
     res.status(500).send({ message: "error in get category", details: err });
   }
