@@ -36,7 +36,7 @@ router.put("/:id", async (req, res) => {
           .send({ message: "error in post updation", details: err });
       }
     } else {
-      res.status(500).send("You Can update only your posts");
+      res.status(401).send("You Can update only your posts");
     }
   } catch (err) {
     res.status(500).send({ message: "error in updation", details: err });
@@ -56,7 +56,7 @@ router.delete("/:id", async (req, res) => {
         res.status(500).send({ message: "error in delete post", err: err });
       }
     } else {
-      res.status(500).send("you can delete only your posts");
+      res.status(401).send({ message: "you can delete only your posts" });
     }
   } catch (err) {
     res.status(500).send({ message: "error in delete", err: err });
