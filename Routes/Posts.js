@@ -48,7 +48,7 @@ router.delete("/:id", async (req, res) => {
     if (post.username === req.body.username) {
       try {
         //delete one post
-        await Post.deleteOne();
+        await post.delete();
         res.status(200).send(post);
       } catch (err) {
         res.status(500).send({ message: "error in delete post", err: err });
