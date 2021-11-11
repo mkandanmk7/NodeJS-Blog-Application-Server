@@ -17,6 +17,7 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: true,
   })
   .then(console.log("connected to mongo db"))
   .catch((err) => console.log("Error in Db connection", err));
