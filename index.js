@@ -42,7 +42,7 @@ const upload = multer({ storage: storage });
 
 // make public folder:
 
-app.use("/api/upload", upload.single("file"), (req, res) => {
+app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
     res.status(200).send("file has been uploaded");
   } catch (err) {
