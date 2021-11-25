@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
-const cors = require("cors");
+// const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 
@@ -11,7 +11,7 @@ const authRoute = require("./Routes/Auth");
 const userRoute = require("./Routes/Users");
 const postRoute = require("./Routes/Posts");
 const categoryRoute = require("./Routes/Categories");
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
 const mongoose = require("mongoose");
