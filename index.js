@@ -56,7 +56,7 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
-port = process.env.PORT || 3001;
+port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log("server running at ", port);
 });
