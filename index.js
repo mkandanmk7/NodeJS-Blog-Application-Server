@@ -44,6 +44,7 @@ const upload = multer({ storage: storage });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
+    console.log("In image upload");
     res.status(200).send("file has been uploaded");
   } catch (err) {
     res.status(500).send("error in uploading");
