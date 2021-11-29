@@ -34,7 +34,8 @@ const storage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name);
+    console.log(req.body);
+    cb(null, file.originalname);
   },
 });
 
@@ -44,6 +45,7 @@ const upload = multer({ storage: storage });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
+    console.log("in upload", req.file);
     console.log("In image upload");
     res.status(200).send("file has been uploaded");
   } catch (err) {
